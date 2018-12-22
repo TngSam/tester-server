@@ -57,8 +57,8 @@ const initLogger = (format: logform.Format, options: any = {}): winston.Logger =
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 const server: Hapi.Server = new Hapi.Server({
-  host: 'localhost',
-  port: 8000
+  host: process.env.HOST || 'localhost',
+  port: process.env.PORT || 8000
 });
 
 /**
