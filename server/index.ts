@@ -1,4 +1,3 @@
-// TODO Tag a version after doing all TODOs
 // TODO Write type declaration files
 // TODO Create an authentication system
 require('dotenv').config();
