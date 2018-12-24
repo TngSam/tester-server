@@ -1,3 +1,5 @@
+import { loggers, Logger } from 'winston';
+
 import UserHandler = require('./user/handler');
 
 /**
@@ -7,8 +9,9 @@ import UserHandler = require('./user/handler');
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 const invokeHandler = (mongooseInstance: any) => {
+  const logger: Logger = loggers.get('database');
   return {
-    user: new UserHandler(mongooseInstance)
+    user: new UserHandler(mongooseInstance, logger)
   }
 };
 
