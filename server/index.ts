@@ -36,7 +36,6 @@ server.route({
 
 /**
  * Start a server
- * @returns {Promise<void>}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 const start = async () => {
