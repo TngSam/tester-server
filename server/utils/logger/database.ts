@@ -1,11 +1,12 @@
 import * as winston from 'winston';
+import * as Transport from 'winston-transport';
 import { Format, TransformableInfo } from 'logform';
 const {
   printf, combine, timestamp, label,
   colorize, metadata
 } = winston.format;
 const LEVEL: symbol = Symbol.for('level');
-const LOGGER_NAME = 'database';
+const LOGGER_NAME: string = 'database';
 
 /**
  * Logger format
@@ -18,7 +19,7 @@ const format: Format = combine(
   timestamp({
     format: 'DD/MM - HH:mm:ss'
   }),
-  printf((info: TransformableInfo) => {
+  printf((info: TransformableInfo): string => {
     const { timestamp, label, metadata, message }: any = info;
     let str = `${timestamp} ${label} [${metadata.handler || 'unknown'}/${metadata.method || '?'}] - ${message}`;
     if (metadata.data) {
@@ -36,7 +37,7 @@ const transportOpts: winston.transports.FileTransportOptions = {
   filename: process.env.DB_LOG_FILENAME || 'logs_db.log',
   maxsize: 5000000
 };
-const transports = [
+const transports: Transport[] = [
   new winston.transports.File(transportOpts)
 ];
 
@@ -57,7 +58,7 @@ const loggerOptions: winston.LoggerOptions = {
  * @returns {string} - Logger name
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-const initLogger = () => {
+const initLogger = (): string => {
   winston.loggers.add('database', loggerOptions);
   return LOGGER_NAME;
 };

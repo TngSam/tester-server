@@ -1,12 +1,15 @@
-import { loggers } from 'winston';
+import { Logger, loggers } from 'winston';
 
 import initDatabaseLogger from './database';
 
-const initLoggers = async () => {
+export interface LoggersObject {
+  [key: string]: Logger;
+}
+
+export const initLoggers = async (): Promise<LoggersObject> => {
   const DB_LOGGER_NAME = await initDatabaseLogger();
 
   return {
     database: loggers.get(DB_LOGGER_NAME)
   };
 };
-export default initLoggers;

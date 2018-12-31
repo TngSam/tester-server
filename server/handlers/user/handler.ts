@@ -1,5 +1,7 @@
+import { Mongoose, Model } from 'mongoose';
+import { Handler } from 'handlers';
 import { Logger } from 'winston';
-import Models = require('./../../models');
+import Models = require('models');
 
 /**
  * Handle database user related operations
@@ -7,10 +9,10 @@ import Models = require('./../../models');
  * @prop mongooseInstance - Mongoose instance
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-class UserHandler {
-  mongoose: any;
+class UserHandler implements Handler {
+  mongoose: Mongoose;
   logger: Logger;
-  constructor (mongooseInstance: any, logger: Logger) {
+  constructor (mongooseInstance: Mongoose, logger: Logger) {
     this.mongoose = mongooseInstance;
     this.logger = logger;
   }
@@ -22,8 +24,8 @@ class UserHandler {
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
-  create (data: Models.User.Interface, verbose: boolean = false) {
-    const User: any = this.mongoose.model('User', Models.User.Schema);
+  create = (data: Models.User.Interface, verbose: boolean = false): void => {
+    const User: Model = this.mongoose.model('User', Models.User.Schema);
     new User(data).save((error: any) => {
       if (error) return console.error(error);
       this.logger.info('New user was created.', {

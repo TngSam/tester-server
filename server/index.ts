@@ -1,12 +1,12 @@
-// TODO Write type declaration files
 // TODO Create an authentication system
+
 require('dotenv').config();
 
 import * as Hapi from 'hapi';
 
 import dbConfig from './config/db.config';
-import initDatabase from './utils/database';
-import initLoggers from './utils/logger';
+import { initDatabase, DatabaseController } from './utils/database';
+import { initLoggers, LoggersObject } from './utils/logger';
 
 import Models = require('./models');
 
@@ -43,9 +43,8 @@ const start = async () => {
   try {
     await server.start();
     chalked.blue(`Server running at: ${server.info.uri}`);
-
-    const loggers: any = await initLoggers();
-    const { connection, handlers } = await initDatabase(dbConfig.url);
+    const loggers: LoggersObject = await initLoggers();
+    const { connection, handlers }: DatabaseController = await initDatabase(dbConfig.url);
 
     // User registration example
     const exampleUser: Models.User.Interface = {

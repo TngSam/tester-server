@@ -1,8 +1,13 @@
 // TODO Find out how to safely disconnect from the server on process exit
 
 import * as mongoose from 'mongoose';
-const req = require('app-root-path').require;
-const chalked = req('server/plugins/chalked');
+import { invokeHandler, HandlersObject } from 'handlers';
+const chalked = require('plugins/chalked');
+
+export interface DatabaseController {
+  connection: mongoose.Connection,
+  handlers: HandlersObject
+}
 
 /**
  * Initialize a database connection
@@ -10,7 +15,7 @@ const chalked = req('server/plugins/chalked');
  * @returns {Promise<{connection: mongoose.Connection, handler: any}>}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-const initDatabase = async (url: string) => {
+export const initDatabase = async (url: string): Promise<DatabaseController> => {
   try {
     await mongoose.connect(url, { useNewUrlParser: true });
   } catch (e) {
@@ -20,11 +25,9 @@ const initDatabase = async (url: string) => {
 
   chalked.green(`Successfully connected to the database!`);
   const db: mongoose.Connection = mongoose.connection;
-  const Handler = req('server/handlers')(mongoose);
+  const Handler: HandlersObject = invokeHandler(mongoose);
   return {
     connection: db,
     handlers: Handler
   };
 };
-
-export default initDatabase;
