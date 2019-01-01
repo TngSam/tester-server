@@ -7,5 +7,6 @@ import chalk from 'chalk';
 module.exports = {
   red: (msg: string) => console.log(chalk.red(msg)),
   green: (msg: string) => console.log(chalk.green(msg)),
-  blue: (msg: string) => console.log(chalk.blue(msg))
+  blue: (msg: string) => console.log(chalk.blue(msg)),
+  yellow: (msg: string) => console.log(chalk.yellow(msg))
 };
