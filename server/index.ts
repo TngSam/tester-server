@@ -1,6 +1,3 @@
-// TODO: Commit files
-// TODO: Comment code
-// TODO: Create errors handler
 // TODO: Create an authentication system
 
 require('dotenv').config();

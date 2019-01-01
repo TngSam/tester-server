@@ -1,6 +1,11 @@
 const dateformat = require('dateformat');
 const chalked = require('plugins/chalked');
 
+/**
+ * Interface that represents default console logger
+ * @interface
+ * @author Samir Amirseidov <famirseidov@gmail.com>
+ */
 export interface DefaultLogger {
   error: (text: string) => void;
   warn: (text: string) => void;
@@ -11,6 +16,7 @@ export interface DefaultLogger {
 /**
  * Console logger for tiny verbose messages
  * @class
+ * @implements {DefaultLogger}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 export class ConsoleLogger implements DefaultLogger {

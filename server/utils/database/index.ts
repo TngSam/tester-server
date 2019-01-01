@@ -5,6 +5,11 @@ import { invokeHandler, HandlersObject } from 'handlers';
 import { ConsoleLogger, DefaultLogger } from 'utils/console';
 const chalked = require('plugins/chalked');
 
+/**
+ * Interface for object that represents a database controller (handlers and connection)
+ * @interface
+ * @author Samir Amirseidov <famirseidov@gmail.com>
+ */
 export interface DatabaseController {
   connection: mongoose.Connection,
   handlers: HandlersObject
