@@ -6,8 +6,8 @@ import { Document } from 'mongoose';
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 interface UserModel extends Document {
-  nickname: string;
-  password: string;
+  readonly nickname: string;
+  readonly password: string;
 }
 
 export = UserModel;

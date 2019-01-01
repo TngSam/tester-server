@@ -8,7 +8,7 @@ import initDatabaseLogger from './database';
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 export interface LoggersObject {
-  [key: string]: Logger;
+  readonly [key: string]: Logger;
 }
 
 /**

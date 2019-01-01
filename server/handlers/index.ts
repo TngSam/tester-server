@@ -1,8 +1,6 @@
-import handler = require('./index');
 import { Mongoose, Model } from 'mongoose';
 import { loggers, Logger } from 'winston';
 import { DefaultLogger } from 'utils/console';
-
 import UserHandler = require('./user/handler');
 
 export interface Handler {
@@ -10,6 +8,7 @@ export interface Handler {
   logger: Logger;
   verbose: DefaultLogger;
   model: Model<any>;
+
   create: (data: any, verbose?: boolean) => void;
   delete: (data: any, verbose?: boolean) => void;
   find: (data: any, verbose?: boolean) => void;
