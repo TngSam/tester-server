@@ -1,6 +1,6 @@
-interface User {
-  nickname: string,
-  password: string
+interface UserInterface {
+  nickname: string;
+  password: string;
 }
 
-export = User;
+export = UserInterface;
