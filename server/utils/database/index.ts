@@ -18,7 +18,7 @@ export interface DatabaseController {
 /**
  * Initialize a database connection
  * @param url - A database URL
- * @returns {Promise<{connection: mongoose.Connection, handler: any}>}
+ * @returns {Promise<{connection: mongoose.Connection, handler: HandlersObject}>}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 export const initDatabase = async (url: string): Promise<DatabaseController> => {
