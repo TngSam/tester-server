@@ -10,16 +10,13 @@
   "author": "Samir Amirseidov",
   "license": "MIT",
   "dependencies": {
-    "@types/boom": "^7.2.1",
     "@types/hapi": "^17.8.2",
-    "@types/joi": "^14.0.1",
     "@types/mongoose": "^5.3.5",
     "app-root-path": "^2.1.0",
-    "boom": "^7.3.0",
     "dateformat": "^3.0.3",
     "dotenv": "^6.2.0",
     "hapi": "^17.8.1",
-    "joi": "^14.3.1",
+    "http-errors": "^1.7.1",
     "mongoose": "^5.4.0",
     "ramda": "^0.26.1",
     "winston": "^3.1.0"

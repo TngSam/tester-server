@@ -1,11 +1,11 @@
 import UserSchema = require('./user/schema');
-import UserJoi = require('./user/joi');
+import UserInterface = require('./user/interface');
 import UserModel = require('./user/model');
 
 namespace Models {
   export namespace User {
-    export const Schema = UserSchema;
-    export const Joi = UserJoi;
+    export let Schema = UserSchema;
+    export interface Interface extends UserInterface {}
     export interface Model extends UserModel {}
   }
 }

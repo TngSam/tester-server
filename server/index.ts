@@ -2,11 +2,7 @@
 
 require('dotenv').config();
 
-import {
-  Server, Request, ResponseToolkit
-} from 'hapi';
-import boom = require('boom');
-import joi = require('joi');
+import * as Hapi from 'hapi';
 
 import dbConfig from './config/db.config';
 import { initDatabase, DatabaseController } from './utils/database';
@@ -21,9 +17,21 @@ const chalked = require('./plugins/chalked');
  * @type {Server}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-const server: Server = new Server({
+const server: Hapi.Server = new Hapi.Server({
   host: process.env.HOST || 'localhost',
   port: process.env.PORT || 8000
+});
+
+/**
+ * Server index route
+ * @author Samir Amirseidov <famirseidov@gmail.com>
+ */
+server.route({
+  method: 'GET',
+  path: '/',
+  handler (req: any, h: any) {
+    return 'Hello World';
+  }
 });
 
 /**
@@ -37,30 +45,13 @@ const start = async () => {
     const loggers: LoggersObject = await initLoggers();
     const { connection, handlers }: DatabaseController = await initDatabase(dbConfig.url);
 
-    /**
-     * Create user route
-     * @author Samir Amirseidov <famirseidov@gmail.com>
-     */
-    server.route({
-      method: 'POST',
-      path: '/user/create',
-      async handler (req: Request, h: ResponseToolkit) {
-        try {
-          await handlers.user.create(req.query, true);
-          return h.response({
-            text: 'OK',
-            code: 200
-          }).code(200);
-        } catch (error) {
-          return boom.badImplementation();
-        }
-      },
-      options: {
-        validate: {
-          query: Models.User.Joi
-        }
-      }
-    });
+    // User registration example
+    const exampleUser: Models.User.Interface = {
+      nickname: 'monolinks',
+      password: 'helloWorld'
+    };
+    await handlers.user.create(exampleUser, true);
+    const found = await handlers.user.find({ nickname: exampleUser.nickname }, true);
   } catch (error) {
     console.log(error);
     process.exit(1);
