@@ -4,7 +4,8 @@
   "description": "A server for tester application",
   "main": "index.ts",
   "scripts": {
-    "start": "cross-env NODE_PATH=./server NODE_ENV=development nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/index.ts"
+    "start": "cross-env NODE_PATH=./server NODE_ENV=development nodemon --watch 'server/**/*.ts' --exec 'ts-node' server/index.ts",
+    "test": "cross-env NODE_PATH=./server NODE_ENV=development lab --shuffle -v server/tests"
   },
   "repository": "https://github.com/TngSam/tester-server",
   "author": "Samir Amirseidov",
@@ -27,7 +28,9 @@
   "devDependencies": {
     "@types/node": "^10.12.18",
     "chalk": "^2.4.1",
+    "code": "^5.2.4",
     "cross-env": "^5.2.0",
+    "lab": "^18.0.1",
     "ts-node": "^7.0.1",
     "tslint": "^5.12.0",
     "typescript": "^3.2.2"
