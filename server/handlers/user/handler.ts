@@ -15,11 +15,11 @@ class UserHandler implements Handler {
   logger: Logger;
   verbose: DefaultLogger;
   model: Model<Models.User.Model>;
+
   constructor (mongooseInstance: Mongoose, logger: Logger, verbose: DefaultLogger) {
     this.mongoose = mongooseInstance;
     this.logger = logger;
     this.verbose = verbose;
-
     this.model = mongooseInstance.model('User', Models.User.Schema);
   }
 
@@ -30,7 +30,7 @@ class UserHandler implements Handler {
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
-  create = async (data: Models.User.Interface, verbose: boolean = false): Promise<any> => {
+  create = async (data: any, verbose: boolean = false): Promise<any> => {
     try {
       await new this.model(data).save();
 
