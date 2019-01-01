@@ -6,6 +6,10 @@ This is an API for [Tester](https://github.com/TngSam/tester) app.
 
 * [**TypeScript**](https://github.com/Microsoft/TypeScript) aka "JavaScript that scales"
 * [**Hapi.js**](https://github.com/hapijs/hapi) as a back-end engine
+	* [boom](https://github.com/hapijs/boom)
+	* [joi](https://github.com/hapijs/joi)
+	* [lab](https://github.com/hapijs/lab)
+	* [code](https://github.com/hapijs/code)
 * [**MongoDB**](https://github.com/mongodb/mongo) as a document database
 	* [Mongoose](https://github.com/Automattic/mongoose)
 * [Winston](https://github.com/winstonjs/winston)	- an awesome logger
