@@ -1,4 +1,7 @@
-// TODO Create an authentication system
+// TODO: Commit files
+// TODO: Comment code
+// TODO: Create errors handler
+// TODO: Create an authentication system
 
 require('dotenv').config();
 
@@ -47,10 +50,11 @@ const start = async () => {
 
     // User registration example
     const exampleUser: Models.User.Interface = {
-      nickname: 'monolink',
+      nickname: 'monolinks',
       password: 'helloWorld'
     };
-    handlers.user.create(exampleUser);
+    await handlers.user.create(exampleUser, true);
+    const found = await handlers.user.find({ nickname: exampleUser.nickname }, true);
   } catch (error) {
     console.log(error);
     process.exit(1);
