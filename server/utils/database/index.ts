@@ -2,6 +2,7 @@
 
 import * as mongoose from 'mongoose';
 import { invokeHandler, HandlersObject } from 'handlers';
+import { ConsoleLogger, DefaultLogger } from 'utils/console';
 const chalked = require('plugins/chalked');
 
 export interface DatabaseController {
@@ -25,7 +26,8 @@ export const initDatabase = async (url: string): Promise<DatabaseController> => 
 
   chalked.green(`Successfully connected to the database!`);
   const db: mongoose.Connection = mongoose.connection;
-  const Handler: HandlersObject = invokeHandler(mongoose);
+  const verbose: DefaultLogger = new ConsoleLogger();
+  const Handler: HandlersObject = invokeHandler(mongoose, verbose);
   return {
     connection: db,
     handlers: Handler
