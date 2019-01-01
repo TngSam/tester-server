@@ -11,8 +11,8 @@ const chalked = require('plugins/chalked');
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 export interface DatabaseController {
-  connection: mongoose.Connection,
-  handlers: HandlersObject
+  readonly connection: mongoose.Connection,
+  readonly handlers: HandlersObject
 }
 
 /**
