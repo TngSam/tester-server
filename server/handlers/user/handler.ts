@@ -30,7 +30,7 @@ class UserHandler implements Handler {
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
-  create = async (data: any, verbose: boolean = false): Promise<any> => {
+  create = async (data: any, verbose: boolean = false): Promise<void> => {
     try {
       await new this.model(data).save();
 
@@ -54,7 +54,7 @@ class UserHandler implements Handler {
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
-  delete = async (data: any, verbose: boolean = false): Promise<any> => {
+  delete = async (data: any, verbose: boolean = false): Promise<void> => {
     const documentsCount: number = await this.model.find({ nickname: data.nickname }).estimatedDocumentCount();
     if (documentsCount > 0) {
       this.model.deleteOne({ nickname: data.nickname }, (error: any) => {
