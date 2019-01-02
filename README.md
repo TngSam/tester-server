@@ -22,6 +22,8 @@ In future:
 In the project directory, you can run:
 ### `yarn start`
 Runs a dev server at `process.env.HOST:process.env.PORT` (default `localhost:8000`)
+### `yarn test`
+Execute tests
 
 ### .env variables
 * `HOST` - Server host
