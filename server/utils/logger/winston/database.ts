@@ -5,6 +5,8 @@ const {
   printf, combine, timestamp, label,
   colorize, metadata
 } = winston.format;
+
+const LOG_FILE_NAME = process.env.NODE_ENV === 'test' ? 'db_tests.log' : process.env.DB_LOG_FILENAME || 'db_logs.log';
 const LEVEL: symbol = Symbol.for('level');
 const LOGGER_NAME: string = 'database';
 
@@ -34,7 +36,7 @@ const format: Format = combine(
  * @type {{filename: (any|string); maxsize: number}}
  */
 const transportOpts: winston.transports.FileTransportOptions = {
-  filename: process.env.DB_LOG_FILENAME || 'logs_db.log',
+  filename: `logs/${LOG_FILE_NAME}`,
   maxsize: 5000000
 };
 const transports: Transport[] = [
