@@ -483,6 +483,13 @@ debug@3.1.0:
   dependencies:
     ms "2.0.0"
 
+debug@^2.6.0:
+  version "2.6.9"
+  resolved "https://registry.yarnpkg.com/debug/-/debug-2.6.9.tgz#5d128515df134ff327e90a4c93f4e077a536341f"
+  integrity sha512-bC7ElrdJaJnPbAP+1EotYvqZsb3ecl5wi6Bfi6BJTUcNowp6cvspg0jXznRTKDjm/E7AdgFBVeAPVMNcKGsHMA==
+  dependencies:
+    ms "2.0.0"
+
 debug@^4.0.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/debug/-/debug-4.1.1.tgz#3b72260255109c6b589cee050f1d516139664791"
@@ -1005,6 +1012,13 @@ kuler@1.0.x:
   integrity sha512-J9nVUucG1p/skKul6DU3PUZrhs0LPulNaeUOox0IyXDi8S4CztTHs1gQphhuZmzXG7VOQSf6NJfKuzteQLv9gQ==
   dependencies:
     colornames "^1.1.1"
+
+lab-transform-typescript@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/lab-transform-typescript/-/lab-transform-typescript-3.0.1.tgz#c9a8adcc2bbc78dfc7f2e33bdb54bd37f15d4398"
+  integrity sha1-yaitzCu8eN/H8uM721S9N/FdQ5g=
+  dependencies:
+    debug "^2.6.0"
 
 lab@^18.0.1:
   version "18.0.1"
