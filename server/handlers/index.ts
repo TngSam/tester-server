@@ -1,10 +1,16 @@
-import { Mongoose, Model } from 'mongoose';
-import { loggers, Logger } from 'winston';
-import { DefaultLogger } from 'utils/console';
+import { Model } from 'mongoose';
+import { Logger } from 'winston';
+import { initLoggers, LoggersObject } from 'utils/logger/winston';
+import { DefaultLogger, ConsoleLogger } from 'utils/logger/console';
+
 import UserHandler = require('./user/handler');
 
+/**
+ * Interface for basic handlers
+ * @interface
+ * @author Samir Amirseidov <famirseidov@gmail.com>
+ */
 export interface Handler {
-  mongoose: Mongoose;
   logger: Logger;
   verbose: DefaultLogger;
   model: Model<any>;
@@ -21,12 +27,14 @@ export interface HandlersObject {
 /**
  * Create a handlers controller
  * @param mongooseInstance - Mongoose instance
- * @returns {{user: UserHandler}}
+ * @returns {HandlersObject}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-export const invokeHandler = (mongooseInstance: Mongoose, console: DefaultLogger): HandlersObject => {
-  const logger: Logger = loggers.get('database');
+export const invokeHandlers = async (): Promise<HandlersObject> => {
+  const loggers: LoggersObject = await initLoggers();
+  const console: DefaultLogger = new ConsoleLogger();
+
   return {
-    user: new UserHandler(mongooseInstance, logger, console)
+    user: new UserHandler(loggers.user, console)
   }
 };

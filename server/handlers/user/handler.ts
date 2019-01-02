@@ -1,26 +1,25 @@
-import { Mongoose, Model, Query } from 'mongoose';
+import { Model, model } from 'mongoose';
 import { Handler } from 'handlers';
 import { Logger } from 'winston';
-import { DefaultLogger, ConsoleLogger } from 'utils/console';
-import Models = require('models');
+import { DefaultLogger } from 'utils/logger/console';
+import { User } from 'models';
 
 /**
  * Handle database user related operations
  * @class
- * @prop mongooseInstance - Mongoose instance
+ * @prop logger {Logger} - Winston logger
+ * @prop verbose {DefaultLogger} - Custom console logger for verbose messages
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
 class UserHandler implements Handler {
-  mongoose: Mongoose;
   logger: Logger;
   verbose: DefaultLogger;
-  model: Model<Models.User.Model>;
+  model: Model<User.Model>;
 
-  constructor (mongooseInstance: Mongoose, logger: Logger, verbose: DefaultLogger) {
-    this.mongoose = mongooseInstance;
+  constructor (logger: Logger, verbose: DefaultLogger) {
     this.logger = logger;
     this.verbose = verbose;
-    this.model = mongooseInstance.model('User', Models.User.Schema);
+    this.model = model('User', User.Schema);
   }
 
   /**

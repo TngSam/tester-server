@@ -1,18 +1,16 @@
 import { Server, Request, ResponseToolkit } from 'hapi';
 import boom = require('boom');
 
-import { url } from 'config/db.config';
-import { initDatabase, DatabaseController } from 'utils/database';
+import { HandlersObject } from 'handlers';
 import { User } from 'models';
 
 /**
  * Inject API endpoints to custom Hapi server
- * @param server - Hapi server
+ * @param server {Server} - Hapi server
+ * @param handlers {HandlersObject} - Handlers object
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-const injectRouter = async (server: Server): Promise<void> => {
-  const { handlers }: DatabaseController = await initDatabase(url);
-
+const injectRouter = async (server: Server, handlers: HandlersObject): Promise<void> => {
   /**
    * Create user route
    * @author Samir Amirseidov <famirseidov@gmail.com>

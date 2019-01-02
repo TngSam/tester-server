@@ -3,10 +3,9 @@
 require('dotenv').config();
 
 import { Server } from 'hapi';
-const chalked = require('./plugins/chalked');
+const chalked = require('plugins/chalked');
 
-import initLoggers from './utils/logger';
-import injectRouter from './router';
+import setup from 'setup';
 
 /**
  * Server initialization
@@ -25,10 +24,9 @@ const server: Server = new Server({
 const start = async () => {
   try {
     await server.start();
-    chalked.blue(`Server running at: ${server.info.uri}`);
+    await setup(server);
 
-    await initLoggers();
-    await injectRouter(server);
+    chalked.blue(`Server running at: ${server.info.uri}`);
   } catch (error) {
     console.log(error);
     process.exit(1);

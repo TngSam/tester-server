@@ -2,7 +2,8 @@
 const Hapi = require('hapi');
 const { expect } = require('code');
 const { test, experiment, before } = exports.lab = require('lab').script();
-import injectRouter from 'router';
+
+import setup from 'setup';
 
 /**
  * Init a Hapi server
@@ -13,7 +14,7 @@ const server = new Hapi.Server();
 
 experiment('Users handler creates new user without errors', () => {
   before(async () => {
-    await injectRouter(server);
+    await setup(server);
   });
   test('Returns OK when user was created', async () => {
     const response = await server.inject({
