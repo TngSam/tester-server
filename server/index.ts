@@ -2,19 +2,11 @@
 
 require('dotenv').config();
 
-import {
-  Server, Request, ResponseToolkit
-} from 'hapi';
-import boom = require('boom');
-import joi = require('joi');
-
-import dbConfig from './config/db.config';
-import { initDatabase, DatabaseController } from './utils/database';
-import { initLoggers, LoggersObject } from './utils/logger';
-
-import Models = require('./models');
-
+import { Server } from 'hapi';
 const chalked = require('./plugins/chalked');
+
+import initLoggers from './utils/logger';
+import injectRouter from './router';
 
 /**
  * Server initialization
@@ -34,33 +26,9 @@ const start = async () => {
   try {
     await server.start();
     chalked.blue(`Server running at: ${server.info.uri}`);
-    const loggers: LoggersObject = await initLoggers();
-    const { connection, handlers }: DatabaseController = await initDatabase(dbConfig.url);
 
-    /**
-     * Create user route
-     * @author Samir Amirseidov <famirseidov@gmail.com>
-     */
-    server.route({
-      method: 'POST',
-      path: '/user/create',
-      async handler (req: Request, h: ResponseToolkit) {
-        try {
-          await handlers.user.create(req.query, true);
-          return h.response({
-            text: 'OK',
-            code: 200
-          }).code(200);
-        } catch (error) {
-          return boom.badImplementation();
-        }
-      },
-      options: {
-        validate: {
-          query: Models.User.Joi
-        }
-      }
-    });
+    await initLoggers();
+    await injectRouter(server);
   } catch (error) {
     console.log(error);
     process.exit(1);
