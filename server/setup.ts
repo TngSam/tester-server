@@ -2,7 +2,7 @@ import { Server } from 'hapi';
 
 import { url } from 'config/db.config';
 import initDatabase from 'utils/database';
-import { invokeHandlers } from 'handlers';
+import { invokeHandlers, HandlersObject } from 'handlers';
 import injectRouter from 'router';
 
 /**
@@ -11,9 +11,9 @@ import injectRouter from 'router';
  * @returns {Promise<void>}
  * @author Samir Amirseidov <famirseidov@gmail.com>
  */
-const setup = async (server: Server): Promise<void> => {
+const setup = async (server: Server): Promise<void | HandlersObject> => {
   await initDatabase(url);
-  await injectRouter(server, await invokeHandlers());
+  return await injectRouter(server, await invokeHandlers());
 }
 
 export default setup;
