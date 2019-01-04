@@ -15,9 +15,10 @@ export interface Handler {
   verbose: DefaultLogger;
   model: Model<any>;
 
-  create: (data: any, verbose?: boolean) => void;
-  delete: (data: any, verbose?: boolean) => void;
-  find: (data: any, verbose?: boolean) => void;
+  create: (data: any, verbose?: boolean) => Promise<void>;
+  delete: (data: any, verbose?: boolean) => Promise<void>;
+  find: (data: any, verbose?: boolean) => Promise<any>;
+  clear: (verbose?: boolean) => Promise<void>;
 }
 
 export interface HandlersObject {
