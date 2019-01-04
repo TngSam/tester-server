@@ -34,7 +34,7 @@ class UserHandler implements Handler {
       await new this.model(data).save();
 
       if (verbose) {
-        this.verbose.success('New user was created.');
+        this.verbose.success(`New user '${data.nickname}' was created.`);
       }
 
       this.logger.info('New user was created.', {
@@ -54,28 +54,27 @@ class UserHandler implements Handler {
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
   delete = async (data: any, verbose: boolean = false): Promise<void> => {
-    const documentsCount: number = await this.model.find({ nickname: data.nickname }).estimatedDocumentCount();
+    const documentsCount: number = await this.model.find(data).countDocuments();
     if (documentsCount > 0) {
-      this.model.deleteOne({ nickname: data.nickname }, (error: any) => {
-        if (error) return console.error(error);
-
+      try {
+        await this.model.deleteOne({ nickname: data.nickname });
         if (verbose) {
-          this.verbose.success(`User ${data.nickname} was deleted.`);
+          this.verbose.success(`User '${data.nickname}' has been deleted.`);
         }
-
         this.logger.info('User was deleted.', {
           handler: 'user',
           method: 'delete',
           data
         });
-      });
+      } catch (error) {
+        throw error;
+      }
     } else {
-      this.verbose.error('Wow! No documents here.');
+      this.verbose.error('No documents were found during the search.');
     }
   }
-
   /**
-   *
+   * Find users
    * @param data - Search criteria
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
@@ -86,7 +85,7 @@ class UserHandler implements Handler {
         if (error) throw error;
 
         if (verbose) {
-          this.verbose.info(`Found ${arr.length} entities by search.`);
+          this.verbose.info(`Found ${arr.length} document(s) by search.`);
         }
 
         return Promise.resolve(arr);
@@ -94,6 +93,26 @@ class UserHandler implements Handler {
       return result;
     } catch (error) {
       return console.error(error);
+    }
+  }
+  /**
+   * Clear collection
+   * @param verbose - Enable console logging or not
+   * @author Samir Amirseidov <famirseidov@gmail.com>
+   */
+  clear = async (verbose: boolean = false): Promise<void> => {
+    try {
+      await this.model.deleteMany({});
+      if (verbose) {
+        this.verbose.success('Collection has been cleared.');
+      }
+
+      this.logger.info('Collection was cleared.', {
+        handler: 'user',
+        method: 'clear'
+      });
+    } catch (error) {
+      throw error;
     }
   }
 }
