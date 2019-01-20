@@ -80,20 +80,16 @@ class UserHandler implements Handler {
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
   find = async (data: any, verbose: boolean = false): Promise<any> => {
-    try {
-      const result = await this.model.find(data, (error: any, arr: any) => {
-        if (error) throw error;
+    const result = await this.model.find(data, (error: any, arr: any) => {
+      if (error) throw error;
 
-        if (verbose) {
-          this.verbose.info(`Found ${arr.length} document(s) by search.`);
-        }
+      if (verbose) {
+        this.verbose.info(`Found ${arr.length} document(s) by search.`);
+      }
 
-        return Promise.resolve(arr);
-      });
-      return result;
-    } catch (error) {
-      return console.error(error);
-    }
+      return Promise.resolve(arr);
+    });
+    return result;
   }
   /**
    * Clear collection
