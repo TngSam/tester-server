@@ -21,40 +21,56 @@ experiment('Users handler', () => {
     await context.handlers.user.clear(true);
   });
 
-  test('Returns OK on user creation', async () => {
-    const userdata = {
+  test('Returns OK on user registration', async () => {
+    const payload = {
       nickname: 'asdqwe',
       password: 'qwelols'
     };
 
     const response = await server.inject({
       method: 'POST',
-      url: buildURI('/user/create', userdata)
+      url: '/register',
+      payload
+    });
+
+    expect(response.statusCode).to.equal(200);
+  });
+  test('Login works correctly', async ({ context }): Promise<void> => {
+    const payload = {
+      nickname: 'qwe',
+      password: '1234567'
+    };
+
+    await context.handlers.user.create(userdata, true);
+    const response = await server.inject({
+      method: 'POST',
+      url: '/login',
+      payload
     });
 
     expect(response.statusCode).to.equal(200);
   });
   test('Finds users correctly', async ({ context }): Promise<void> => {
-    const userdata = {
+    const payload = {
       nickname: 'monolinks',
       password: 'qwes'
     };
 
-    await context.handlers.user.create(userdata, true);
+    await context.handlers.user.create(payload, true);
 
-    const result = await context.handlers.user.find({ nickname: userdata.nickname }, true);
+    const result = await context.handlers.user.find({ nickname: payload.nickname }, true);
     expect(result.length).to.equal(1);
   });
   test('Deletes user successfully', async ({ context }): Promise<void> => {
-    const userdata = {
+    const payload = {
       nickname: 'monolink',
       password: 'qwes'
     };
 
-    await context.handlers.user.create(userdata, true);
-    await context.handlers.user.delete(userdata, true);
+    await context.handlers.user.create(payload, true);
+    await context.handlers.user.delete(payload, true);
 
-    const result = await context.handlers.user.find({ nickname: userdata.nickname });
+    const result = await context.handlers.user.find({ nickname: payload.nickname });
     expect(result.length).to.equal(0);
   });
 
