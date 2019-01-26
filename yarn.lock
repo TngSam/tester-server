@@ -233,7 +233,7 @@ bluebird@3.5.1:
   resolved "https://registry.yarnpkg.com/bluebird/-/bluebird-3.5.1.tgz#d9551f9de98f1fcda1e683d17ee91a0602ee2eb9"
   integrity sha512-MKiLiV+I1AA596t9w1sQJ8jkiSr5+ZKi0WKrYGUn6d1Fx+Ij4tIj+m2WMQSGczs5jZVxV339chE8iwk6F64wjA==
 
-boom@7.x.x, boom@^7.3.0:
+boom@7.x.x, boom@^7.1.1, boom@^7.3.0:
   version "7.3.0"
   resolved "https://registry.yarnpkg.com/boom/-/boom-7.3.0.tgz#733a6d956d33b0b1999da3fe6c12996950d017b9"
   integrity sha512-Swpoyi2t5+GhOEGw8rEsKvTxFLIDiiKoUc2gsoV6Lyr43LHBIzch3k2MvYUs8RTROrIkVJ3Al0TkaOGjnb+B6A==
@@ -767,6 +767,15 @@ handlebars@4.x.x:
   optionalDependencies:
     uglify-js "^3.1.4"
 
+hapi-auth-bearer-token@^6.1.1:
+  version "6.1.1"
+  resolved "https://registry.yarnpkg.com/hapi-auth-bearer-token/-/hapi-auth-bearer-token-6.1.1.tgz#5cb6b57472435b5e049bbc3a1bc4d32012cffc9e"
+  integrity sha512-qzqngXqJTBYZqQW3ZKScw86/t3484PBL7PVAnCCZBenRXQHRlHWAvALe0Rhmw7vWIGs1VjMjMzPaImp0SMoXSQ==
+  dependencies:
+    boom "^7.1.1"
+    hoek "^6.0.0"
+    joi "^14.1.0"
+
 hapi-capitalize-modules@1.x.x:
   version "1.1.6"
   resolved "https://registry.yarnpkg.com/hapi-capitalize-modules/-/hapi-capitalize-modules-1.1.6.tgz#7991171415e15e6aa3231e64dda73c8146665318"
@@ -837,7 +846,7 @@ heavy@6.x.x:
     hoek "6.x.x"
     joi "14.x.x"
 
-hoek@6.1.x, hoek@6.x.x:
+hoek@6.1.x, hoek@6.x.x, hoek@^6.0.0:
   version "6.1.2"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-6.1.2.tgz#99e6d070561839de74ee427b61aa476bd6bddfd6"
   integrity sha512-6qhh/wahGYZHFSFw12tBbJw5fsAhhwrrG/y3Cs0YMTv2WzMnL0oLPnQJjv1QJvEfylRSOFuP+xCu+tdx0tD16Q==
@@ -952,7 +961,7 @@ joi@14.x.x:
     isemail "3.x.x"
     topo "3.x.x"
 
-joi@^14.3.1:
+joi@^14.1.0, joi@^14.3.1:
   version "14.3.1"
   resolved "https://registry.yarnpkg.com/joi/-/joi-14.3.1.tgz#164a262ec0b855466e0c35eea2a885ae8b6c703c"
   integrity sha512-LQDdM+pkOrpAn4Lp+neNIFV3axv1Vna3j38bisbQhETPMANYRbFJFUyOZcOClYvM/hppMhGWuKSFEK9vjrB+bQ==
