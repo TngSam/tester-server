@@ -2,7 +2,10 @@
 
 require('dotenv').config();
 
-import { Server } from 'hapi';
+import {Server, Auth} from 'hapi';
+import getToken from 'utils/getToken';
+const AuthBearer = require('hapi-auth-bearer-token');
+
 const chalked = require('plugins/chalked');
 
 import setup from 'setup';
@@ -23,6 +26,18 @@ const server: Server = new Server({
  */
 const start = async () => {
   try {
+    await server.register(AuthBearer);
+    server.auth.strategy('simple', 'bearer-access-token', {
+      validate: async (request: any, token: string, h: any) => {
+        if (['/login', '/register'].includes(request.url.pathname)) {
+          return { isValid: true, credentials: { token } };
+        }
+
+        return { isValid: token === getToken, credentials: { token } };
+      }
+    });
+    server.auth.default('simple');
+
     await server.start();
     await setup(server);
 
