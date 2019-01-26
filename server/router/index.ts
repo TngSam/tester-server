@@ -1,7 +1,9 @@
 import { Server } from 'hapi';
+import getToken from 'utils/getToken';
 
 const corsHeaders = require('hapi-cors-headers');
-import boom = require('boom');
+
+import createError from 'utils/createError';
 
 import { HandlersObject } from 'handlers';
 import { User } from 'models';
@@ -24,21 +26,22 @@ const injectRouter = async (server: Server, handlers: HandlersObject): Promise<v
           const user = result[0];
           if (user.password === req.payload.password) {
             return h.response({
-              text: 'OK'
-            }).code(200);
+              text: 'OK',
+              token: getToken
+            });
           } else {
-            return boom.badRequest('Invalid password');
+            return h.response(createError('Invalid password.'));
           }
         } else {
-          return boom.notFound('User not found');
+          return h.response(createError('User not found.'));
         }
       } catch (error) {
-        return boom.badImplementation(error);
+        return h.response(createError(500));
       }
     },
     options: {
       validate: {
-        query: {
+        payload: {
           nickname: User.Joi.nickname,
           password: User.Joi.password
         }
@@ -57,17 +60,17 @@ const injectRouter = async (server: Server, handlers: HandlersObject): Promise<v
           await handlers.user.create(req.payload, true);
           return h.response({
             text: 'OK'
-          }).code(200);
+          });
         } else {
-          return boom.expectationFailed('User is already exist');
+          return h.response(createError('User already exists.'));
         }
       } catch (error) {
-        return boom.badImplementation(error);
+        return h.response(createError(500));
       }
     },
     options: {
       validate: {
-        query: User.Joi
+        payload: User.Joi
       }
     }
   });
@@ -81,9 +84,9 @@ const injectRouter = async (server: Server, handlers: HandlersObject): Promise<v
         await handlers.user.delete(req.payload, true);
         return h.response({
           text: 'OK'
-        }).code(200);
+        });
       } catch (error) {
-        return boom.badImplementation(error);
+        return h.response(createError(500));
       }
     },
     options: {
@@ -105,9 +108,9 @@ const injectRouter = async (server: Server, handlers: HandlersObject): Promise<v
         const data = await handlers.user.find(query, true);
         return h.response({
           data
-        }).code(200);
+        });
       } catch (error) {
-        return boom.badImplementation(error);
+        return h.response(createError(500));
       }
     }
   });
