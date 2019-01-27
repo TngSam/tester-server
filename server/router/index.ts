@@ -59,7 +59,8 @@ const injectRouter = async (server: Server, handlers: HandlersObject): Promise<v
         if (!result.length) {
           await handlers.user.create(req.payload, true);
           return h.response({
-            text: 'OK'
+            text: 'OK',
+            token: getToken
           });
         } else {
           return h.response(createError('User already exists.'));
