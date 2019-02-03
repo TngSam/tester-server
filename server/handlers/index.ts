@@ -1,9 +1,11 @@
+// TODO: Refactor repeating code
 import { Model } from 'mongoose';
 import { Logger } from 'winston';
 import { initLoggers, LoggersObject } from 'utils/logger/winston';
 import { DefaultLogger, ConsoleLogger } from 'utils/logger/console';
 
 import UserHandler = require('./user/handler');
+import TestHandler = require('./test/handler');
 
 /**
  * Interface for basic handlers
@@ -36,6 +38,7 @@ export const invokeHandlers = async (): Promise<HandlersObject> => {
   const console: DefaultLogger = new ConsoleLogger();
 
   return {
-    user: new UserHandler(loggers.user, console)
+    user: new UserHandler(loggers.database, console),
+    test: new TestHandler(loggers.database, console)
   }
 };
