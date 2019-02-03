@@ -1,5 +1,3 @@
-// TODO: Create an authentication system
-
 require('dotenv').config();
 
 import {Server, Auth} from 'hapi';
