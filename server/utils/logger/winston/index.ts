@@ -20,6 +20,6 @@ export const initLoggers = async (): Promise<LoggersObject> => {
   const DB_LOGGER_NAME = await initDatabaseLogger();
 
   return {
-    user: loggers.get(DB_LOGGER_NAME)
+    database: loggers.get(DB_LOGGER_NAME)
   };
 };
