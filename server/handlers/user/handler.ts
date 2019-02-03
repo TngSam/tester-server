@@ -29,7 +29,7 @@ class UserHandler implements Handler {
    * @param verbose - Enable console logging or not
    * @author Samir Amirseidov <famirseidov@gmail.com>
    */
-  create = async (data: any, verbose: boolean = false): Promise<void> => {
+  create = async (data: User.Model, verbose: boolean = false): Promise<void> => {
     try {
       await new this.model(data).save();
 
@@ -43,9 +43,9 @@ class UserHandler implements Handler {
         data
       });
     } catch (error) {
-      return console.error(error);
+      throw error;
     }
-  }
+  };
 
   /**
    * Delete user
@@ -58,9 +58,11 @@ class UserHandler implements Handler {
     if (documentsCount > 0) {
       try {
         await this.model.deleteOne({ nickname: data.nickname });
+
         if (verbose) {
           this.verbose.success(`User '${data.nickname}' has been deleted.`);
         }
+
         this.logger.info('User was deleted.', {
           handler: 'user',
           method: 'delete',
@@ -70,9 +72,10 @@ class UserHandler implements Handler {
         throw error;
       }
     } else {
-      this.verbose.error('No documents were found during the search.');
+      this.verbose.error('No users were found during the search.');
     }
-  }
+  };
+
   /**
    * Find users
    * @param data - Search criteria
@@ -84,13 +87,14 @@ class UserHandler implements Handler {
       if (error) throw error;
 
       if (verbose) {
-        this.verbose.info(`Found ${arr.length} document(s) by search.`);
+        this.verbose.info(`Found ${arr.length} user(s) by search.`);
       }
 
       return Promise.resolve(arr);
     });
     return result;
-  }
+  };
+
   /**
    * Clear collection
    * @param verbose - Enable console logging or not
@@ -110,7 +114,7 @@ class UserHandler implements Handler {
     } catch (error) {
       throw error;
     }
-  }
+  };
 }
 
 export = UserHandler;
