@@ -14,7 +14,7 @@ export interface DefaultLogger {
 }
 
 /**
- * Console logger for tiny verbose messages
+ * Console logger for tiny messages
  * @class
  * @implements {DefaultLogger}
  * @author Samir Amirseidov <famirseidov@gmail.com>
